@@ -1,41 +1,36 @@
 <?php
-$resultado = "";
+$res = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $ambiente = $_POST['ambiente'] ?? '';
-    switch ($ambiente) {
+    $a = $_POST['ambiente'] ?? '';
+    switch ($a) {
         case "residencial":
-            $resultado = "<h3>Residencial</h3>Equipamento Indicado: Roteador Wireless (SOHO).<br>Para ambientes residenciais, um roteador Wi-Fi padrão é suficiente para conectar smartphones, TVs e notebooks.";
+            $res = "<b>Residencial</b><br>Equipamento Indicado: Roteador Wireless (SOHO).<br>Para ambientes residenciais, um roteador Wi-Fi padrão é suficiente.";
             break;
         case "pequeno_escritorio":
-            $resultado = "<h3>Pequeno Escritório</h3>Equipamento Indicado: Switch Gerenciável de 24 Portas.<br>Para um escritório, recomendamos o uso de um Switch para conectar os computadores via cabo, garantindo estabilidade e segurança na rede local (LAN).";
+            $res = "<b>Pequeno Escritório</b><br>Equipamento Indicado: Switch Gerenciável de 24 Portas.<br>Recomendamos o uso de um Switch para conectar os computadores via cabo.";
             break;
         case "data_center":
-            $resultado = "<h3>Data Center</h3>Equipamento Indicado: Roteador de Borda e Switch Layer 3.<br>Para Data Centers, é necessária uma infraestrutura robusta com equipamentos de alta capacidade para lidar com grande tráfego de dados e roteamento avançado.";
+            $res = "<b>Data Center</b><br>Equipamento Indicado: Roteador de Borda e Switch Layer 3.<br>Infraestrutura robusta para alta capacidade.";
             break;
         default:
-            $resultado = "<b style='color:red;'>Erro: Ambiente não reconhecido em nosso banco de dados.</b>";
+            $res = "<span style='color:red'>Erro: Ambiente não reconhecido.</span>";
             break;
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>ConectaJá Consultoria</title>
-</head>
+<html>
+<head><meta charset="UTF-8"></head>
 <body>
     <form method="POST">
-        <label for="ambiente">Tamanho do Ambiente:</label> 
-        <select name="ambiente" id="ambiente" required> 
-            <option value="">-- Selecione --</option> 
-            <option value="residencial">Casa / Apartamento</option> 
-            <option value="pequeno_escritorio">Pequeno Escritório (Até 15 máquinas)</option> 
-            <option value="data_center">Data Center Corporativo</option> 
+        <select name="ambiente" required>
+            <option value="">-- Selecione --</option>
+            <option value="residencial">Casa / Apartamento</option>
+            <option value="pequeno_escritorio">Pequeno Escritório</option>
+            <option value="data_center">Data Center Corporativo</option>
         </select>
-        <br><br>
         <button type="submit">Ver Recomendação</button>
     </form>
-    <?php if ($resultado) echo "<div style='margin-top:20px;'>$resultado</div>"; ?>
+    <div style="margin-top:20px;"><?php echo $res; ?></div>
 </body>
 </html>
